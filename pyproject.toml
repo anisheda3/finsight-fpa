@@ -1,0 +1,26 @@
+[project]
+name = "finsight-fpa"
+version = "1.0.0"
+description = "FinSight FP&A AI — autonomous financial planning & analysis"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["frontend", "node_modules"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "PL", "RUF"]
+ignore = ["E501", "PLR2004", "PLR0913", "PLR0915"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = false
+ignore_missing_imports = true
+exclude = ["frontend/", "tests/"]

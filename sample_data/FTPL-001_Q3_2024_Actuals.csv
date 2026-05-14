@@ -1,0 +1,16 @@
+period,department,metric_name,amount,currency,source
+2024-07-01,consolidated,revenue,8200000,INR,ERP
+2024-07-01,consolidated,cogs,3400000,INR,ERP
+2024-07-01,consolidated,rd,920000,INR,ERP
+2024-07-01,consolidated,sm,1100000,INR,ERP
+2024-07-01,consolidated,ga,520000,INR,ERP
+2024-08-01,consolidated,revenue,8400000,INR,ERP
+2024-08-01,consolidated,cogs,3500000,INR,ERP
+2024-08-01,consolidated,rd,1450000,INR,ERP
+2024-08-01,consolidated,sm,1180000,INR,ERP
+2024-08-01,consolidated,ga,540000,INR,ERP
+2024-09-01,consolidated,revenue,9100000,INR,ERP
+2024-09-01,consolidated,cogs,3700000,INR,ERP
+2024-09-01,consolidated,rd,950000,INR,ERP
+2024-09-01,consolidated,sm,1280000,INR,ERP
+2024-09-01,consolidated,ga,580000,INR,ERP

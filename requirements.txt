@@ -1,0 +1,40 @@
+# --- API / config ---
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9
+pydantic>=2.6
+pydantic-settings>=2.2
+
+# --- DB / cache ---
+asyncpg>=0.29
+psycopg2-binary>=2.9    # for seed script
+redis>=5.0
+
+# --- Workflow orchestration ---
+temporalio>=1.6
+
+# --- Forecasting / ML ---
+numpy>=1.26
+pandas>=2.2
+statsmodels>=0.14
+prophet>=1.1            # heavy; comment out if you only want SARIMA + linear
+
+# --- Agno ---
+agno>=0.1               # if not on PyPI under this name, install from VCS
+
+# --- LLM ---
+google-genai>=1.0.0
+
+# --- Notifications ---
+slack_sdk>=3.27
+weasyprint>=62          # PDF rendering (alt: xhtml2pdf)
+
+# --- Utilities ---
+faker>=24
+python-dotenv>=1.0
+
+# --- Tests / quality ---
+pytest>=8.0
+pytest-asyncio>=0.23
+ruff>=0.4
+mypy>=1.10
