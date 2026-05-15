@@ -23,7 +23,7 @@ FinSight FP&A AI automates the month‑end financial close cycle. It ingests act
 - ✅ Gemini LLM integration (commentary & grounding eval) – ready, placeholder used in demo due to API quota
 - ✅ Full‑stack: FastAPI + React (dark theme, persistent state, WebSocket live updates)
 
-📺 **Demo Video:** [Watch the demo](https://drive.google.com/file/d/1TlWuqfWz0iLsrwnncV2--SXxoAj5Fg5t/view?usp=sharing)
+📺 **Demo Video:** [Watch the demo](https://drive.google.com/file/d/1drWLHWR5brGsKgHqe3PgPz4pzm4L4gG2/view?usp=sharing)
 
 ---
 
