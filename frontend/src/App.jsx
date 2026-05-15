@@ -5,41 +5,67 @@ import ScenarioPlanner from './pages/ScenarioPlanner';
 import ActivityLog from './pages/ActivityLog';
 import HITLReview from './pages/HITLReview';
 
-const navItem = ({ isActive }) =>
-  `px-3 py-2 rounded-md text-sm font-medium ${
-    isActive ? 'bg-brand-600 text-white' : 'text-slate-700 hover:bg-slate-200'
-  }`;
+const NAV = [
+  { to: '/upload',    label: 'Upload',    icon: '↑' },
+  { to: '/dashboard', label: 'Dashboard', icon: '◈' },
+  { to: '/scenarios', label: 'Scenarios', icon: '◎' },
+  { to: '/hitl',      label: 'HITL',      icon: '⚑' },
+  { to: '/activity',  label: 'Activity',  icon: '≋' },
+];
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="bg-white border-b border-slate-200">
+    <div className="min-h-screen flex flex-col bg-slate-950">
+      {/* ── Top bar ── */}
+      <header className="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-xl">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+          {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-brand-600 text-white grid place-items-center font-bold">F</div>
-            <h1 className="text-lg font-semibold text-slate-800">FinSight FP&amp;A AI</h1>
+            <div className="relative w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 animate-glow">
+              <span className="text-white font-bold text-lg leading-none">F</span>
+            </div>
+            <div>
+              <h1 className="text-sm font-bold gradient-text">FinSight</h1>
+              <p className="text-[10px] text-slate-500 tracking-widest uppercase">FP&A Intelligence</p>
+            </div>
           </div>
-          <nav className="flex items-center gap-2">
-            <NavLink to="/upload"    className={navItem}>Upload</NavLink>
-            <NavLink to="/dashboard" className={navItem}>Dashboard</NavLink>
-            <NavLink to="/scenarios" className={navItem}>Scenarios</NavLink>
-            <NavLink to="/hitl"      className={navItem}>HITL</NavLink>
-            <NavLink to="/activity"  className={navItem}>Activity</NavLink>
+
+          {/* Nav */}
+          <nav className="flex items-center gap-1">
+            {NAV.map(({ to, label, icon }) => (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-150
+                   ${isActive
+                     ? 'bg-indigo-600/20 text-indigo-300 ring-1 ring-indigo-500/40'
+                     : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'}`
+                }
+              >
+                <span className="text-sm">{icon}</span>
+                {label}
+              </NavLink>
+            ))}
           </nav>
         </div>
       </header>
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4">
+
+      {/* ── Main ── */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 animate-fade-up">
         <Routes>
           <Route path="/" element={<Navigate to="/upload" replace />} />
-          <Route path="/upload"    element={<Upload />} />
+          <Route path="/upload" element={<Upload />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/scenarios" element={<ScenarioPlanner />} />
-          <Route path="/hitl"      element={<HITLReview />} />
-          <Route path="/activity"  element={<ActivityLog />} />
+          <Route path="/hitl" element={<HITLReview />} />
+          <Route path="/activity" element={<ActivityLog />} />
         </Routes>
       </main>
-      <footer className="text-center text-xs text-slate-500 py-3">
-        FinSight FP&amp;A AI · Fyntwin Assignment #2
+
+      {/* ── Footer ── */}
+      <footer className="text-center text-[11px] text-slate-600 py-3 border-t border-slate-800/40">
+        FinSight FP&A AI · Powered by Gemini · Temporal Sagas
       </footer>
     </div>
   );

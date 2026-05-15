@@ -26,7 +26,7 @@ def create_anomaly_agent():
         instructions=ANOMALY_AGENT_INSTRUCTIONS_V1,
         tools=[detect_anomalies_tool],
         output_schema=list[AnomalyFlag],
-        memory=get_memory(),
+        memory=None,
         guardrails=[],
         evals=[],
         hooks={"session_start": session_start_hook,

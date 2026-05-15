@@ -1,15 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-.card { @apply bg-white rounded-lg shadow-sm border border-slate-200 p-4; }
-.btn  { @apply inline-flex items-center px-3 py-2 rounded-md text-sm font-medium transition; }
-.btn-primary { @apply btn bg-brand-600 text-white hover:bg-brand-700; }
-.btn-ghost   { @apply btn bg-slate-100 text-slate-700 hover:bg-slate-200; }
-.btn-danger  { @apply btn bg-red-600 text-white hover:bg-red-700; }
-.tag         { @apply px-2 py-0.5 text-xs rounded font-semibold; }
-.tag-strong  { @apply tag bg-emerald-100 text-emerald-700; }
-.tag-ok      { @apply tag bg-sky-100 text-sky-700; }
-.tag-risk    { @apply tag bg-amber-100 text-amber-700; }
-.tag-crit    { @apply tag bg-red-100 text-red-700; }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+/* ── Cards ── */
+.card {
+  @apply bg-slate-800/60 backdrop-blur-sm rounded-xl border border-slate-700/50 p-5 shadow-xl;
+}
+.card-glass {
+  @apply bg-white/5 backdrop-blur-md rounded-xl border border-white/10 p-5;
+}
+
+/* ── Buttons ── */
+.btn {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900;
+}
+.btn-primary {
+  @apply btn bg-gradient-to-r from-indigo-600 to-violet-600 text-white hover:from-indigo-500 hover:to-violet-500 shadow-lg shadow-indigo-500/25 focus:ring-indigo-500 disabled:opacity-40 disabled:cursor-not-allowed;
+}
+.btn-ghost {
+  @apply btn bg-slate-700/60 text-slate-300 hover:bg-slate-600/60 hover:text-white focus:ring-slate-500;
+}
+.btn-danger {
+  @apply btn bg-gradient-to-r from-red-600 to-rose-600 text-white hover:from-red-500 hover:to-rose-500 shadow-lg shadow-red-500/25 focus:ring-red-500;
+}
+.btn-success {
+  @apply btn bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-500 hover:to-teal-500 shadow-lg shadow-emerald-500/25;
+}
+
+/* ── Tags ── */
+.tag { @apply px-2.5 py-0.5 text-xs rounded-full font-semibold tracking-wide; }
+.tag-strong { @apply tag bg-emerald-500/20 text-emerald-400 ring-1 ring-emerald-500/30; }
+.tag-ok { @apply tag bg-sky-500/20 text-sky-400 ring-1 ring-sky-500/30; }
+.tag-risk { @apply tag bg-amber-500/20 text-amber-400 ring-1 ring-amber-500/30; }
+.tag-crit { @apply tag bg-red-500/20 text-red-400 ring-1 ring-red-500/30; }
+
+/* ── Form inputs ── */
+.input {
+  @apply w-full bg-slate-900/60 border border-slate-600/60 rounded-lg px-3 py-2 text-sm text-slate-100 placeholder-slate-500
+         focus:outline-none focus:ring-2 focus:ring-indigo-500/60 focus:border-indigo-500/60 transition-all;
+}
+.label { @apply block text-xs font-semibold text-slate-400 mb-1.5 tracking-wide uppercase; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 9999px; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(99,102,241,0); }
+}
+.animate-fade-up { animation: fadeUp 0.3s ease-out; }
+.animate-glow    { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* ── Gradient text ── */
+.gradient-text {
+  @apply bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent;
+}
+
+/* ── Table ── */
+.data-table { @apply w-full text-sm; }
+.data-table thead tr { @apply border-b border-slate-700; }
+.data-table thead th { @apply py-3 pr-4 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider; }
+.data-table tbody tr { @apply border-b border-slate-700/40 hover:bg-slate-700/20 transition-colors; }
+.data-table tbody td { @apply py-2.5 pr-4 text-slate-300; }
+
+/* ── Status dots ── */
+.dot { @apply w-2 h-2 rounded-full inline-block; }
+.dot-green  { @apply dot bg-emerald-400; }
+.dot-amber  { @apply dot bg-amber-400; }
+.dot-red    { @apply dot bg-red-400; }
+.dot-slate  { @apply dot bg-slate-500; }
+
+/* ── Sidebar nav active ── */
+.nav-active {
+  @apply bg-gradient-to-r from-indigo-600/30 to-violet-600/20 text-indigo-300 border-l-2 border-indigo-400;
+}
+.nav-inactive {
+  @apply text-slate-400 hover:text-slate-200 hover:bg-slate-700/40 border-l-2 border-transparent;
+}
+
+/* ── Stat card ── */
+.stat-card {
+  @apply card flex flex-col gap-1;
+}
+.stat-value {
+  @apply text-2xl font-bold text-white;
+}
+.stat-label {
+  @apply text-xs text-slate-400 uppercase tracking-wider font-medium;
+}

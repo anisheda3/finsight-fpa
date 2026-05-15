@@ -29,7 +29,8 @@ async def signal_workflow(workflow_id: str, signal_name: str, *args: Any) -> Non
         logger.warning("temporal not available; cannot signal %s", workflow_id)
         return
     handle = client.get_workflow_handle(workflow_id)
-    await handle.signal(signal_name, *args)
+    signal_arg = args if len(args) > 1 else args[0] if args else None
+    await handle.signal(signal_name, signal_arg)
 
 
 async def start_workflow(workflow_name: str, payload: dict[str, Any],

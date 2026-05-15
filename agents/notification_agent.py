@@ -56,7 +56,7 @@ def create_notification_agent():
         instructions=NOTIFICATION_AGENT_INSTRUCTIONS_V1,
         tools=[send_slack_message_tool, send_email_tool, publish_redis_update_tool],
         output_schema=NotificationResult,
-        memory=get_memory(),
+        memory=None,
         guardrails=[],
         evals=[],
         hooks={"session_start": session_start_hook,

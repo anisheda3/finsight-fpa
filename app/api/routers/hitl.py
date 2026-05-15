@@ -26,8 +26,13 @@ class HitlResponse(BaseModel):
 @router.post("/respond")
 async def respond(req: HitlResponse) -> dict[str, str]:
     """Slack-button webhook OR direct API.  Signals the Temporal workflow."""
-    await signal_workflow(req.workflow_id, "hitl_decision",
-                          req.flag_id, req.decision, req.reviewer_id, req.notes)
+    payload = {
+        "flag_id": req.flag_id,
+        "decision": req.decision,
+        "reviewer_id": req.reviewer_id,
+        "notes": req.notes,
+    }
+    await signal_workflow(req.workflow_id, "hitl_decision", payload)
     return {"status": "signaled", "workflow_id": req.workflow_id, "flag_id": req.flag_id}
 
 
@@ -36,8 +41,13 @@ async def override(flag_id: str, req: HitlResponse) -> dict[str, str]:
     """Manual override — same signal, used by the dashboard 'override' button."""
     if req.flag_id != flag_id:
         raise HTTPException(status_code=400, detail="flag_id mismatch")
-    await signal_workflow(req.workflow_id, "hitl_decision",
-                          flag_id, req.decision, req.reviewer_id, req.notes)
+    payload = {
+        "flag_id": req.flag_id,
+        "decision": req.decision,
+        "reviewer_id": req.reviewer_id,
+        "notes": req.notes,
+    }
+    await signal_workflow(req.workflow_id, "hitl_decision", payload)
     return {"status": "override_signaled",
             "workflow_id": req.workflow_id, "flag_id": flag_id}
 

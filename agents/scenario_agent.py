@@ -45,7 +45,7 @@ def create_scenario_agent():
         instructions=SCENARIO_AGENT_INSTRUCTIONS_V1,
         tools=[propagate_scenario_pl_tool, derive_ratios_tool, get_scenario_preset_tool],
         output_schema=ScenarioPlan,
-        memory=get_memory(),
+        memory=None,
         guardrails=[],
         evals=[],
         hooks={"session_start": session_start_hook,

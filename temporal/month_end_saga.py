@@ -27,12 +27,15 @@ class MonthEndAnalysisSaga:
 
     # ─── Signals ────────────────────────────────────────────
     @workflow.signal(name="hitl_decision")
-    def hitl_decision(self, flag_id: str, decision: str,
-                      reviewer_id: str | None = None,
-                      notes: str | None = None) -> None:
-        """Called by FastAPI when a Slack button or override is clicked."""
+    def hitl_decision(self, payload: dict) -> None:
+        flag_id = payload["flag_id"]
+        decision = payload["decision"]
+        reviewer_id = payload.get("reviewer_id")
+        notes = payload.get("notes")
         self._hitl_decisions[flag_id] = {
-            "decision": decision, "reviewer_id": reviewer_id, "notes": notes,
+            "decision": decision,
+            "reviewer_id": reviewer_id,
+            "notes": notes,
         }
         self._pending_flag_ids.discard(flag_id)
 

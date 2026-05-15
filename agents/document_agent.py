@@ -30,7 +30,7 @@ def create_document_agent():
         instructions=DOCUMENT_AGENT_INSTRUCTIONS_V1,
         tools=[search_documents_tool],
         output_schema=list,
-        memory=get_memory(),
+        memory=None,
         guardrails=[],
         evals=[],
         hooks={"session_start": session_start_hook,
