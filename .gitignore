@@ -25,3 +25,4 @@ dist/
 # Local data
 *.sqlite
 pgdata/
+all_code.txt
