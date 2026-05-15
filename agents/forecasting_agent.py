@@ -62,7 +62,7 @@ def create_forecasting_agent():
             save_forecast_memory_tool,
         ],
         output_schema=ForecastResult,
-        memory=get_memory(),
+        memory=None,
         guardrails=[ForecastReasonablenessGuardrail()],
         evals=[ForecastAccuracyEval()],
         hooks={"session_start": session_start_hook,

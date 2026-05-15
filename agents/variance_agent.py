@@ -47,7 +47,7 @@ def create_variance_agent():
         tools=[compute_variance_tool, compute_waterfall_tool,
                assign_ranks_tool, flag_for_hitl_tool],
         output_schema=VarianceReport,
-        memory=get_memory(),
+        memory=None,
         guardrails=[],
         evals=[],
         hooks={"session_start": session_start_hook,

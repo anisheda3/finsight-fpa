@@ -35,7 +35,7 @@ def create_commentary_agent():
         instructions=COMMENTARY_AGENT_INSTRUCTIONS_V1,
         tools=[format_financial_summary_tool, retrieve_variance_patterns_tool],
         output_schema=FinancialCommentary,
-        memory=get_memory(),
+        memory=None,
         guardrails=[CommentaryGroundingGuardrail()],
         evals=[CommentaryGroundingEval()],
         hooks={"session_start": session_start_hook,

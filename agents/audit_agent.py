@@ -46,7 +46,7 @@ def create_audit_agent():
         instructions=AUDIT_AGENT_INSTRUCTIONS_V1,
         tools=[write_audit_log_tool, write_agent_run_tool, summarize_workflow_tool],
         output_schema=list[AuditEntry],
-        memory=get_memory(),
+        memory=None,
         guardrails=[],
         evals=[],
         hooks={"session_start": session_start_hook,

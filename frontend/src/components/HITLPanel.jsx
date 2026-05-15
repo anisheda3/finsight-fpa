@@ -1,38 +1,74 @@
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 import { api } from '../api/client';
+import { usePersistedData } from '../hooks/usePersistedData';
+import Spinner from './Spinner';
 
-export default function HITLPanel() {
-  const [pending, setPending] = useState([]);
+export default function HITLPanel({ companyId }) {
+  const fetchFn = useCallback(
+    () => api.hitlPending(companyId),
+    [companyId]
+  );
+  const { data: pending, loading, error, refresh } = usePersistedData(
+    `hitl-pending-${companyId}`,
+    fetchFn,
+    { ttlMs: 30_000 }
+  );
 
-  useEffect(() => {
-    api.hitlPending().then(setPending).catch(() => setPending([]));
-  }, []);
+  if (loading) return <Spinner label="Loading pending flags…" />;
+
+  const items = pending || [];
 
   return (
     <div className="card">
-      <h3 className="font-semibold mb-2">Pending HITL flags</h3>
-      {pending.length === 0
-        ? <p className="text-sm text-slate-500">No pending flags.</p>
-        : (
-          <table className="min-w-full text-sm">
-            <thead className="text-left text-slate-500 border-b">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-slate-200">Pending HITL Flags</h3>
+        <div className="flex items-center gap-2">
+          {items.length > 0 && (
+            <span className="tag tag-risk">{items.length} pending</span>
+          )}
+          <button onClick={refresh} className="btn-ghost text-xs py-1 px-2">↻ Refresh</button>
+        </div>
+      </div>
+
+      {error && <p className="text-xs text-red-400 mb-3">Error: {error}</p>}
+
+      {items.length === 0 ? (
+        <div className="text-center py-6">
+          <span className="text-2xl">✓</span>
+          <p className="text-sm text-slate-500 mt-2">No pending flags</p>
+        </div>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="data-table text-xs">
+            <thead>
               <tr>
-                <th className="py-2">Flag</th><th>Type</th><th>Workflow</th><th>Created</th>
+                <th>Flag ID</th>
+                <th>Type</th>
+                <th>Metric</th>
+                <th>Severity</th>
+                <th>Created</th>
               </tr>
             </thead>
             <tbody>
-              {pending.map((p, i) => (
-                <tr key={i} className="border-b">
-                  <td className="py-2 font-mono">{p.flag_id}</td>
-                  <td>{p.flag_type}</td>
-                  <td className="font-mono">{p.temporal_workflow_id}</td>
-                  <td>{p.created_at}</td>
+              {items.map((p, i) => (
+                <tr key={i}>
+                  <td className="font-mono text-slate-400">{p.flag_id}</td>
+                  <td><span className="tag tag-risk">{p.flag_type}</span></td>
+                  <td className="text-slate-300">{p.metric_name || '—'}</td>
+                  <td>
+                    {p.severity && (
+                      <span className={`tag ${p.severity === 'CRITICAL' ? 'tag-crit' : 'tag-risk'}`}>
+                        {p.severity}
+                      </span>
+                    )}
+                  </td>
+                  <td className="text-slate-500">{p.created_at?.slice(0, 16) || '—'}</td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )
-      }
+        </div>
+      )}
     </div>
   );
 }

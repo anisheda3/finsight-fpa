@@ -143,6 +143,10 @@ class MemoryManager:
             for r in rows
         ]
 
+    async def create_user_memories(self, *args, **kwargs) -> None:
+        """Required by Agno's agent protocol. No-op for now."""
+        return None
+
 
 # Process-wide singleton, configured at startup
 _GLOBAL_MEMORY: MemoryManager | None = None

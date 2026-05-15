@@ -28,7 +28,7 @@ def create_data_ingestion_agent():
         instructions=DATA_INGESTION_AGENT_INSTRUCTIONS_V1,
         tools=[parse_and_validate_actuals_tool],
         output_schema=IngestionResult,
-        memory=get_memory(),
+        memory=None,
         guardrails=[DataSanityGuardrail()],
         evals=[],
         hooks={"session_start": session_start_hook,
